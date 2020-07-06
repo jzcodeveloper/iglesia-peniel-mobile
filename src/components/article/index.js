@@ -83,7 +83,7 @@ const Article = ({image, title, author, content}) => {
           <Container>
             {image ? (
               <Images>
-                <Image source={image} />
+                <Image source={{uri: image}} />
               </Images>
             ) : null}
             {title ? <Subtitle>{title}</Subtitle> : null}
@@ -93,7 +93,13 @@ const Article = ({image, title, author, content}) => {
         ListHeaderComponent={
           <>
             <Image
-              source={image || require('../../assets/images/article.jpg')}
+              source={
+                typeof image === 'number'
+                  ? image
+                  : image
+                  ? {uri: image}
+                  : require('../../assets/images/article.jpg')
+              }
             />
             {title ? <Title>{title}</Title> : null}
           </>

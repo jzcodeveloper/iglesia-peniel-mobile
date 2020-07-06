@@ -104,7 +104,14 @@ const VideoPlayer = ({image, title, description, caption, menu, onPress}) => {
         </Modal>
       )}
       <Image
-        source={image || require('../../../assets/images/article.jpg')}></Image>
+        source={
+          typeof image === 'number'
+            ? image
+            : image
+            ? {uri: image}
+            : require('../../assets/images/article.jpg')
+        }
+      />
       <Bottom>
         <Content>
           <Title numberOfLines={1}>{title}</Title>

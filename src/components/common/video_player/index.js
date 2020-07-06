@@ -4,9 +4,9 @@ import {Dimensions, StatusBar} from 'react-native';
 import Modal from 'react-native-modal';
 import Video from 'react-native-video';
 
-/* import Orientation from 'react-native-orientation-locker'; */
+import Orientation from 'react-native-orientation-locker';
 import PlayerControls from '../player_controls';
-/* import ProgressBar from '../progress_bar'; */
+import ProgressBar from '../progress_bar';
 
 import FixedIcon from '../fixed_icon';
 import Button from '../button';
@@ -109,13 +109,13 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
     setShowMenu(false);
   };
 
-  /* useEffect(() => {
+  useEffect(() => {
     Orientation.addOrientationListener(handleOrientation);
 
     return () => {
       Orientation.removeOrientationListener(handleOrientation);
     };
-  }, []); */
+  }, []);
 
   return (
     <Container>
@@ -150,7 +150,7 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
         {poster && <Background source={poster} resizeMode="contain" />}
         <StyledVideo
           ref={videoRef}
-          source={source}
+          source={{uri: source}}
           controls={false}
           resizeMode="contain"
           onLoad={onLoadEnd}
@@ -163,8 +163,7 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
           <Overlay>
             <FullscreenButton
               menu={menu ? true : false}
-              /* onPress={handleFullscreen} */
-            >
+              onPress={handleFullscreen}>
               {state.fullscreen ? <FullscreenClose /> : <FullscreenOpen />}
             </FullscreenButton>
             <PlayerControls
@@ -176,13 +175,13 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
               skipBackwards={skipBackward}
               skipForwards={skipForward}
             />
-            {/* <ProgressBar
-                currentTime={state.currentTime}
-                duration={state.duration > 0 ? state.duration : 0}
-                onSlideStart={handlePlayPause}
-                onSlideComplete={handlePlayPause}
-                onSlideCapture={onSeek}
-              /> */}
+            <ProgressBar
+              currentTime={state.currentTime}
+              duration={state.duration > 0 ? state.duration : 0}
+              onSlideStart={handlePlayPause}
+              onSlideComplete={handlePlayPause}
+              onSlideCapture={onSeek}
+            />
           </Overlay>
         )}
       </Button>
@@ -195,7 +194,7 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
     </Container>
   );
 
-  /* function handleOrientation(orientation: string) {
+  function handleOrientation(orientation: string) {
     orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT'
       ? (setState((s) => ({...s, fullscreen: true})), StatusBar.setHidden(true))
       : (setState((s) => ({...s, fullscreen: false})),
@@ -206,7 +205,7 @@ const VideoPlayer = ({title, description, source, menu, poster}) => {
     state.fullscreen
       ? Orientation.unlockAllOrientations()
       : Orientation.lockToLandscapeLeft();
-  } */
+  }
 
   function handlePlayPause() {
     // If playing, pause and show controls immediately.

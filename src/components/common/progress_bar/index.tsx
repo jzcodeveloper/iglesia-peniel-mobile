@@ -1,4 +1,4 @@
-/* import React from 'react';
+import React from 'react';
 import Slider from '@react-native-community/slider';
 import {View, Text, StyleSheet} from 'react-native';
 
@@ -81,4 +81,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProgressBar;
- */
